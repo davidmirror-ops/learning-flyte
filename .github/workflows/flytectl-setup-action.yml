@@ -3,7 +3,7 @@ on: [push]
 jobs:
   install-flytectl:
     runs-on: ubuntu-latest
-    container: ubuntu
+    #container: ubuntu
     steps:
       - uses: actions/checkout@v2
       - uses: unionai-oss/flytectl-setup-action@master
