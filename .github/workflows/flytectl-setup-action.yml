@@ -11,10 +11,10 @@ jobs:
         run: flytectl demo start
       - name: Setup flytectl config
         run: flytectl config init
-      - name: Register basic examples
-        run: |
-          FLYTESNACKS_VERSION=$(curl --silent "https://api.github.com/repos/flyteorg/flytesnacks/releases/latest" | jq -r .tag_name)
-          flytectl register files -p flytesnacks -d development --archive https://github.com/flyteorg/flytesnacks/releases/download/$FLYTESNACKS_VERSION/snacks-examples-basics.tar.gz  --version v1
+   #   - name: Register basic examples
+   #     run: |
+   #       FLYTESNACKS_VERSION=$(curl --silent "https://api.github.com/repos/flyteorg/flytesnacks/releases/latest" | jq -r .tag_name)
+   #       flytectl register files -p flytesnacks -d development --archive https://github.com/flyteorg/flytesnacks/releases/download/$FLYTESNACKS_VERSION/snacks-examples-basics.tar.gz  --version v1
  
 
 
