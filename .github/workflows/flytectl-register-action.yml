@@ -1,0 +1,27 @@
+name: flyitectl-register-action
+on: [push]
+jobs:
+ register-workflow:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v2
+     - name: Setup flytectl config
+       run: |
+         mkdir -p ~/.flyte
+         sed 's#endpoint=.*#endpoint=flyte-on-gcp.uniondemo.run' file
+         cp config.yaml ~/.flyte/config.yaml
+     - name: Setup flytesnacks
+       run: |
+         git clone https://github.com/flyteorg/flytesnacks
+         cd flytesnacks
+         make start
+     - name: Setup flytectl
+       uses: unionai/flytectl-setup-action@v0.0.1
+     
+     - uses: unionai/flyte-register-action@v0.0.1
+       with:
+         version: '0.1.8' # The version of workflow
+         proto: 'https://github.com/flyteorg/flytesnacks/releases/download/v0.2.89/flytesnacks-core.tgz'
+         project: 'flytesnacks'
+         domain: 'development'
+         archive: true
