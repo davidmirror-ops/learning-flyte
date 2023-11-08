@@ -5,18 +5,19 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - uses: actions/checkout@v2
+     - name: Setup flytectl
+       uses: flytectl-setup-action
      - name: Setup flytectl config
        run: |
+         sed -i 's/endpoint: localhost:30080/endpoint: flyte-on-gcp.uniondemo.run/' config.yaml
          mkdir -p ~/.flyte
-         sed 's#endpoint=.*#endpoint=flyte-on-gcp.uniondemo.run' file
          cp config.yaml ~/.flyte/config.yaml
      - name: Setup flytesnacks
        run: |
          git clone https://github.com/flyteorg/flytesnacks
          cd flytesnacks
          make start
-     - name: Setup flytectl
-       uses: unionai/flytectl-setup-action@v0.0.1
+
      
      - uses: unionai/flyte-register-action@v0.0.1
        with:
